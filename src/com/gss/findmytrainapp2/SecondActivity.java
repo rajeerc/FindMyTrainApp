@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SecondActivity extends ActionBarActivity {
 	
@@ -18,8 +19,17 @@ public class SecondActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_second);
 		
-		btnBack = (Button) findViewById(R.id.btnback);
+		//getting data from the previous activity
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		String stationName = bundle.getString("station");
 		
+		TextView t = (TextView) findViewById(R.id.textView1);
+		t.setText("Train list for " + stationName);
+		
+		
+		//back button for the second window
+		btnBack = (Button) findViewById(R.id.btnback);
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

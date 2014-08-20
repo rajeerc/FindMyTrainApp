@@ -6,5 +6,28 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="btnBack">Back</string>
+    
+    <string-array name="tempstations">
+        <item>"Veyangoda"</item>
+        <item>"Heendeniya Pattigoda"</item>
+        <item>"Magalegoda"</item>
+        <item>"Bemmulla"</item>
+        <item>"Daraluwa"</item>
+        <item>"Gampaha"</item>
+        <item>"Yagoda"</item>
+        <item>"Ganemulla"</item>
+        <item>"Bulugahagoda"</item>
+        <item>"Batuwaththa"</item>
+        <item>"Ragama"</item>
+        <item>"Horape"</item>
+        <item>"Wanawasala"</item>
+        <item>"Hunupitiya"</item>
+        <item>"Enderamulla"</item>
+        <item>"Kelaniya"</item>
+        <item>"Dematagoda"</item>
+        <item>"Maradana"</item>
+        <item>"Colombo Fort"</item>
+    </string-array>
+    <color name="Black">#FFFFFF</color>
 
 </resources>

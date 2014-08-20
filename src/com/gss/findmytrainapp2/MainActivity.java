@@ -15,7 +15,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.gss.findmytrainbackend.findmytrain.Findmytrain;
 import com.gss.findmytrainbackend.findmytrain.model.*;
@@ -24,13 +29,30 @@ import com.gss.findmytrainbackend.findmytrain.model.*;
 public class MainActivity extends ActionBarActivity {
 
 	Button btnsubmit;
-	
+	Spinner spinner ; 
+	ArrayAdapter<String> adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		/*
+		//listing the stations
+		spinner = (Spinner) findViewById(R.id.spinstations); 
+		adapter = ArrayAdapter.createFromResource(this, R.array.tempstations, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		*/
+		
+		//station input using the auto complete text field
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, (String[])getResources().getStringArray(R.array.tempstations));
+		AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.stationinput);		
+		textView.setAdapter(adapter);
+		
+		final TextView tempView = textView;
+		
+		//submit button
 		btnsubmit = (Button) findViewById(R.id.btnsubmit);
 		btnsubmit.setOnClickListener(new View.OnClickListener() {
 			
@@ -38,15 +60,19 @@ public class MainActivity extends ActionBarActivity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				
-				//persist check for a user
+/*		
+  				//persist check for a user
 				String timestamp = "12:00";
 				String station = "Badulla";
 				String[] params = { station, timestamp };
 				new AddUserAsyncTask(MainActivity.this).execute(params);
-				
+*/				
+				String stationName = tempView.getText().toString();
 				
 				//transfering to the next activity
 				Intent myIntent = new Intent (MainActivity.this, SecondActivity.class);
+				//sending data to the other activity
+				myIntent.putExtra("station", stationName);
 				startActivity(myIntent);
 				
 				//
@@ -58,6 +84,11 @@ public class MainActivity extends ActionBarActivity {
 		
 	}
 	
+	private final String[] STATIONS = new String[] {
+			"one", "two", "three", "four", "five", "six"
+	};
+			
+			
 	private class AddUserAsyncTask extends AsyncTask<String, Void, User>{
 
 		
