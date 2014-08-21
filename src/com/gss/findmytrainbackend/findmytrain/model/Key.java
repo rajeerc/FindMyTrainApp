@@ -19,7 +19,7 @@
 package com.gss.findmytrainbackend.findmytrain.model;
 
 /**
- * Model definition for Record.
+ * Model definition for Key.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the findmytrain. For a detailed explanation see:
@@ -29,13 +29,19 @@ package com.gss.findmytrainbackend.findmytrain.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class Record extends com.google.api.client.json.GenericJson {
+public final class Key extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String comment;
+  private java.lang.String appId;
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.Boolean complete;
 
   /**
    * The value may be {@code null}.
@@ -47,38 +53,53 @@ public final class Record extends com.google.api.client.json.GenericJson {
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String station;
+  private java.lang.String kind;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.Integer status;
+  private java.lang.String name;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String timeStamp;
+  private java.lang.String namespace;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private Train train;
+  private Key parent;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getComment() {
-    return comment;
+  public java.lang.String getAppId() {
+    return appId;
   }
 
   /**
-   * @param comment comment or {@code null} for none
+   * @param appId appId or {@code null} for none
    */
-  public Record setComment(java.lang.String comment) {
-    this.comment = comment;
+  public Key setAppId(java.lang.String appId) {
+    this.appId = appId;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.Boolean getComplete() {
+    return complete;
+  }
+
+  /**
+   * @param complete complete or {@code null} for none
+   */
+  public Key setComplete(java.lang.Boolean complete) {
+    this.complete = complete;
     return this;
   }
 
@@ -92,7 +113,7 @@ public final class Record extends com.google.api.client.json.GenericJson {
   /**
    * @param id id or {@code null} for none
    */
-  public Record setId(java.lang.Long id) {
+  public Key setId(java.lang.Long id) {
     this.id = id;
     return this;
   }
@@ -100,71 +121,71 @@ public final class Record extends com.google.api.client.json.GenericJson {
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getStation() {
-    return station;
+  public java.lang.String getKind() {
+    return kind;
   }
 
   /**
-   * @param station station or {@code null} for none
+   * @param kind kind or {@code null} for none
    */
-  public Record setStation(java.lang.String station) {
-    this.station = station;
+  public Key setKind(java.lang.String kind) {
+    this.kind = kind;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.Integer getStatus() {
-    return status;
+  public java.lang.String getName() {
+    return name;
   }
 
   /**
-   * @param status status or {@code null} for none
+   * @param name name or {@code null} for none
    */
-  public Record setStatus(java.lang.Integer status) {
-    this.status = status;
+  public Key setName(java.lang.String name) {
+    this.name = name;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getTimeStamp() {
-    return timeStamp;
+  public java.lang.String getNamespace() {
+    return namespace;
   }
 
   /**
-   * @param timeStamp timeStamp or {@code null} for none
+   * @param namespace namespace or {@code null} for none
    */
-  public Record setTimeStamp(java.lang.String timeStamp) {
-    this.timeStamp = timeStamp;
+  public Key setNamespace(java.lang.String namespace) {
+    this.namespace = namespace;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public Train getTrain() {
-    return train;
+  public Key getParent() {
+    return parent;
   }
 
   /**
-   * @param train train or {@code null} for none
+   * @param parent parent or {@code null} for none
    */
-  public Record setTrain(Train train) {
-    this.train = train;
+  public Key setParent(Key parent) {
+    this.parent = parent;
     return this;
   }
 
   @Override
-  public Record set(String fieldName, Object value) {
-    return (Record) super.set(fieldName, value);
+  public Key set(String fieldName, Object value) {
+    return (Key) super.set(fieldName, value);
   }
 
   @Override
-  public Record clone() {
-    return (Record) super.clone();
+  public Key clone() {
+    return (Key) super.clone();
   }
 
 }

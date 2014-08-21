@@ -8,20 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gss.findmytrainapp2.SecondActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listtrains"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/btnback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="144dp"
-        android:text="@string/btnBack" />
+        android:layout_alignParentRight="true" >
+    </ListView>
 
 </RelativeLayout>
