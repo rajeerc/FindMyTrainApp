@@ -6,7 +6,9 @@ import java.util.List;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.json.gson.GsonFactory;
 import com.gss.findmytrainbackend.findmytrain.Findmytrain;
+import com.gss.findmytrainbackend.findmytrain.Findmytrain.ListOfTrains;
 import com.gss.findmytrainbackend.findmytrain.model.CollectionResponseTrain;
+import com.gss.findmytrainbackend.findmytrain.model.StringCollection;
 import com.gss.findmytrainbackend.findmytrain.model.Train;
 
 import android.app.ProgressDialog;
@@ -34,6 +36,9 @@ public class SecondActivity extends ActionBarActivity {
 	private ArrayList<Train> trainsList;
 	private ArrayAdapter<String> adapter;
 	public String[] details;
+	private String stationName;
+	private List<Train> trainList = new ArrayList<Train>();
+	private StringCollection trainStringList = new StringCollection();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +46,10 @@ public class SecondActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_second);
 
-		/*
-		 * // getting data from the previous activity Intent intent =
-		 * getIntent(); Bundle bundle = intent.getExtras(); String stationName =
-		 * bundle.getString("station");
-		 */
+		// getting data from the previous activity
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		stationName = bundle.getString("station");
 
 		// showing the list of trains available
 		listTrains = (ListView) findViewById(R.id.listtrains);
@@ -107,9 +111,11 @@ public class SecondActivity extends ActionBarActivity {
 						AndroidHttp.newCompatibleTransport(),
 						new GsonFactory(), null);
 
-				builder.setRootUrl("http://10.10.4.202:80/_ah/api");
+				builder.setRootUrl("http://192.168.137.221:8888/_ah/api");
 				builder.setApplicationName("Findmytrain");
 				Findmytrain service = builder.build();
+				trainStringList =  service.listOfTrains(stationName).execute();
+				//Log.d(tag, msg)
 				trains = service.listTrain().execute();
 
 			} catch (Exception e) {
@@ -123,20 +129,51 @@ public class SecondActivity extends ActionBarActivity {
 
 			pd.dismiss();
 			int i = 0;
-			List<Train> _list = trains.getItems();
+			
+			//this is where the whole list of available trains is displayed
+			
+			List<Train> list = trains.getItems();
 
-			details = new String[_list.size()];
+			details = new String[list.size()];
 
-			for (Train train : _list) {
+			for (Train train : list) {
 				details[i] = new String();
 				details[i++] = "From " + train.getStart() + "\nTo "
 						+ train.getDestination();
 			}
+//			data is taken
+			
+//			i=0;
+//			if (trainStringList.getItems().toString() != null){
+//			details[i] = new String();
+//			details[i] = trainStringList.getItems().toString();}
 
-			// Do something with the result.
+			// Do something with the result. with the String list 
+//			forwared by the listOfTrains method
+			
+			List<String> displayingList = new ArrayList<String>();
+			String[] tempArray;
+//			
 
+			for (String s : trainStringList.getItems().toArray(new String[0])){
+				tempArray = s.split("\n");
+				displayingList.add(tempArray[0]);
+				Log.d("details", tempArray[0]);
+			}
+			//
+
+//			
+//			displayingList.add("ranji");
+//			displayingList.add("ranji2");
+//			displayingList.add("ranji3");
+//			
+//
+//			adapter = new ArrayAdapter<String>(SecondActivity.this,
+//					android.R.layout.simple_list_item_1, displayingList);
+//			listTrains.setAdapter(adapter);
+			
 			adapter = new ArrayAdapter<String>(SecondActivity.this,
-					android.R.layout.simple_list_item_1, details);
+					android.R.layout.simple_list_item_1, displayingList);
 			listTrains.setAdapter(adapter);
 		}
 

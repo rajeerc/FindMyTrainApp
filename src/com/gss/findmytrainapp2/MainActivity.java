@@ -88,8 +88,7 @@ public class MainActivity extends ActionBarActivity {
 			"one", "two", "three", "four", "five", "six"
 	};
 			
-			
-	private class AddUserAsyncTask extends AsyncTask<String, Void, User>{
+				private class AddUserAsyncTask extends AsyncTask<String, Void, User>{
 
 		
 		Context context;
@@ -107,15 +106,15 @@ public class MainActivity extends ActionBarActivity {
 				Findmytrain.Builder builder = new Findmytrain.Builder(AndroidHttp.newCompatibleTransport(),
 						new GsonFactory(), null);
 				
-				builder.setRootUrl("http://10.0.2.2:8888/_ah/api");
+				builder.setRootUrl("http://192.168.137.221:8888/_ah/api");
 				builder.setApplicationName("FindMyTrain");
 				
-				User user = new User();
-				user.setUserid("Krv Perera");
-				user.setRating(4.8);
-				
-				Findmytrain service = builder.build();
-				response = service.insertUser(user).execute();
+//				User user = new User();
+//				user.setUserid("Krv Perera");
+//				user.setRating(4.8);
+//				
+//				Findmytrain service = builder.build();
+//				response = service.insertUser(user).execute();
 
 			}
 			catch(Exception e){
