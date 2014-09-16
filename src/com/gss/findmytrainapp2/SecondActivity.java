@@ -3,30 +3,26 @@ package com.gss.findmytrainapp2;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.json.gson.GsonFactory;
-import com.gss.findmytrainbackend.findmytrain.Findmytrain;
-import com.gss.findmytrainbackend.findmytrain.Findmytrain.ListOfTrains;
-import com.gss.findmytrainbackend.findmytrain.model.CollectionResponseTrain;
-import com.gss.findmytrainbackend.findmytrain.model.StringCollection;
-import com.gss.findmytrainbackend.findmytrain.model.Train;
-
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
-
-import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.gson.GsonFactory;
+import com.gss.findmytrainbackend.findmytrain.Findmytrain;
+import com.gss.findmytrainbackend.findmytrain.model.CollectionResponseTrain;
+import com.gss.findmytrainbackend.findmytrain.model.StringCollection;
+import com.gss.findmytrainbackend.findmytrain.model.Train;
 
 public class SecondActivity extends ActionBarActivity {
 
@@ -39,6 +35,7 @@ public class SecondActivity extends ActionBarActivity {
 	private String stationName;
 	private List<Train> trainList = new ArrayList<Train>();
 	private StringCollection trainStringList = new StringCollection();
+	final String SPLIT_STRING = "\n";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +118,7 @@ public class SecondActivity extends ActionBarActivity {
 				// trainStringList =
 				// service.listOfTrains(stationName).execute();
 				// Log.d("station list" , trainStringList);
-				//trains = service.listTrain().execute();
+				// trains = service.listTrain().execute();
 				// trains = service.listOfTrains(stationName).execute();
 
 				trainStringList = service.listOfTrains(stationName).execute();
@@ -139,9 +136,9 @@ public class SecondActivity extends ActionBarActivity {
 		protected void onPostExecute(StringCollection trains) {
 
 			pd.dismiss();
-			int i = 0;
-			
-			trainStringList = trains;
+			List<String> trainList = null;
+			trainList = trains.getItems();
+			// int i = 0;
 
 			// this is where the whole list of available trains is displayed
 
@@ -163,22 +160,44 @@ public class SecondActivity extends ActionBarActivity {
 			// details[i] = trainStringList.getItems().toString();}
 
 			// Do something with the result. with the String list
-			// forwared by the listOfTrains method
+			// forward by the listOfTrains method
 
 			List<String> displayingList = new ArrayList<String>();
 			String[] tempArray;
 
-			if (trainStringList ==  null) {
-				for (String s : trainStringList.getItems().toArray(
-						new String[0])) {
-					tempArray = s.split("\n");
-
+			if (trainList.size() != 0) {
+				for (String s : trainList) {
+					tempArray = s.split(SPLIT_STRING);
 					displayingList.add(tempArray[0]);
-					Log.d("details", tempArray[0]);
+					//Log.d("details", tempArray[0]);
 				}
-			} else {
-				displayingList
-						.add("No trains available at the moment");
+			}
+
+			else {
+
+				// displaying an alert dialog when there are not trains
+				// available
+
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+						SecondActivity.this);
+
+				alertDialog.setTitle("Train not found");
+				alertDialog
+						.setMessage("Unfortunately there are no trains available at the moment");
+				alertDialog.setIcon(android.R.drawable.ic_dialog_info);
+
+				alertDialog.setPositiveButton("Back",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								Intent myIntent = new Intent(
+										SecondActivity.this, MainActivity.class);
+								startActivity(myIntent);
+							}
+						});
+
+				alertDialog.show();
+
 			}
 
 			//
