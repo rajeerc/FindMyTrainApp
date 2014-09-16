@@ -29,5 +29,6 @@
         <item>"Colombo Fort"</item>
     </string-array>
     <color name="Black">#FFFFFF</color>
+    <string name="station_input_hint">Enter the station</string>
 
 </resources>

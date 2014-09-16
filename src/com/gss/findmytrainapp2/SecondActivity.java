@@ -111,9 +111,13 @@ public class SecondActivity extends ActionBarActivity {
 						AndroidHttp.newCompatibleTransport(),
 						new GsonFactory(), null);
 
-				builder.setRootUrl("http://192.168.137.221:8888/_ah/api");
+				builder.setRootUrl("http://10.0.2.2:8888/_ah/api");
 				builder.setApplicationName("Findmytrain");
 				Findmytrain service = builder.build();
+				
+				//ListView stationList = (ListView) findViewById(R.id.listView1);
+				
+				
 				trainStringList =  service.listOfTrains(stationName).execute();
 				//Log.d(tag, msg)
 				trains = service.listTrain().execute();
